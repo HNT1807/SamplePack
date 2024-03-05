@@ -48,17 +48,18 @@ uploaded_file = st.file_uploader("Choose an Excel file", type=['xlsx'])
 if uploaded_file is not None:
     composers, num_tracks, max_possible_points = process_file(uploaded_file)
     if composers:
+
         # Sorting composers by percentage in descending order
         sorted_composers = sorted(composers.items(), key=lambda x: x[1]['percentage'], reverse=True)
 
         formatted_composers = ", ".join(
             [f"{name} ({data['pro']}) {data['percentage']:.2f}% [{data['ipi']}]" for name, data in sorted_composers])
         st.write(f"{formatted_composers}")
-
+        # Displaying the number of tracks and the maximum possible points
+        st.write(f"The album has {num_tracks} tracks ({max_possible_points} points)")
         for composer, data in sorted_composers:
             st.write(f"{composer}: {data['points']} points ({data['percentage']:.2f}%)")
 
-        # Displaying the number of tracks and the maximum possible points
-        st.write(f"The album has {num_tracks} tracks ({max_possible_points} points)")
+
     else:
         st.write("Invalid file or file format")
