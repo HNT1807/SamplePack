@@ -22,10 +22,10 @@ def process_file(uploaded_file):
                         pro = pro_and_percent[0].strip()
                         ipi_match = re.search(r'\[(.*?)\]', composer_entry)
                         ipi = ipi_match.group(1) if ipi_match else ""
-                        percentage_match = re.search(r'\d+', pro_and_percent[1])
+                        percentage_match = re.search(r'\d+\.?\d*', pro_and_percent[1])
                         if percentage_match:
                             percentage = float(percentage_match.group())
-                            points = (percentage / 100) * 100
+                            points = percentage
                             composers[name] = {
                                 'points': composers.get(name, {}).get('points', 0) + points,
                                 'pro': pro,
